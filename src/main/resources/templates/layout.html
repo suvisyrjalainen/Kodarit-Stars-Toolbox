@@ -4,7 +4,8 @@
     <!--Standard html metadata stuff. Here to avoid duplication across pages-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="icon.png" type="image/png">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="icon" th:href="@{/icon.png}" type="image/png">
     <!--Set the page title using a parameter of the template.
         The text inside the element is replaced with the value of the variable by thymeleaf.-->
     <title th:text="${title}">Example Title</title>
@@ -14,7 +15,7 @@
 <!--A header at the top where we can put links to different pages-->
 <header>
     <!--Temporary header content before we set up nice CSS-->
-    <a href="/">Main Page</a> | <a href="/test">Test Page</a>
+    <a th:href="@{/}">Main Page</a> | <a th:href="@{/test}">Test Page</a>
 </header>
 
 <!--Add a heading to the page, using same variable as the title above-->
