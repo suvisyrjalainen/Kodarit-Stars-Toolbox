@@ -1,0 +1,32 @@
+<!--Declare doctype and body to make this a valid html document-->
+<!doctype html>
+<!--Pull in the base page layout and pass in the content fragment-->
+<html th:replace="~{layout::base-page('URL', ~{::content})}">
+<body>
+<!--This element acts as the content of the page. It'll get deleted along with the body tag above due to the th::replace
+    on the <html>, but before then the code is copied into the base page template.-->
+<main th:fragment="content">
+    <div id="status">Valitse tiedosto</div>
+    <input type="file" id="file">
+    <div id="alue" class="output" style="display: none;"></div>
+    <script>
+        const alue = document.getElementById('alue')
+        const file = document.getElementById('file')
+        const status = document.getElementById('status')
+        file.onchange = () => {
+            const tied = event.target.files[0]
+            if (!tied) return
+            const fr = new FileReader()
+            fr.onload = () => {
+                status.innerHTML =
+                `Valmis <button onclick="navigator.clipboard.writeText('${fr.result}')">kopioi</button>`
+                alue.innerHTML = fr.result
+                alue.style.display = 'block'
+            }
+            fr.readAsDataURL(tied)
+            status.innerHTML = 'Odota...'
+        }
+    </script>
+</main>
+</body>
+</html>

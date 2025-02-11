@@ -18,4 +18,9 @@ public class ToolboxController {
     public String test() {
         return "test";
     }
+
+    @GetMapping("/url")
+    public String url() {
+        return "url";
+    }
 }
