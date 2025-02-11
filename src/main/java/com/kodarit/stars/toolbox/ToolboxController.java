@@ -19,6 +19,11 @@ public class ToolboxController {
         return "test";
     }
 
+    @GetMapping("/suvintest")
+    public String suvintest() {
+        return "suvin_test";
+    }
+
     @GetMapping("/url")
     public String url() {
         return "url";
