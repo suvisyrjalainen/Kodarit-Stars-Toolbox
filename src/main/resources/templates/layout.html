@@ -4,6 +4,7 @@
     <!--Standard html metadata stuff. Here to avoid duplication across pages-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" th:href="@{/reset.css}">
     <link rel="stylesheet" th:href="@{/style.css}">
     <link rel="icon" th:href="@{/icon.png}" type="image/png">
     <!--Set the page title using a parameter of the template.
@@ -13,24 +14,31 @@
 <body>
 
 <!--A header at the top where we can put links to different pages-->
-<header>
+<header class="main-header">
     <!--Temporary header content before we set up nice CSS-->
-    <a th:href="@{/}">Main Page</a> | <a th:href="@{/test}">Test Page</a>
+    <nav class="primary-nav">
+        <a th:href="@{/}">Main Page</a>
+        <a th:href="@{/test}">Test Page</a>
+    </nav>
 </header>
 
-<!--Add a heading to the page, using same variable as the title above-->
-<h1 th:text="${title}">Example Title</h1>
+<div class="content-wrapper">
+    <!--Add a heading to the page, using same variable as the title above-->
+    <h1 th:text="${title}">Example Title</h1>
 
-<!--The main content of the page. This element is replaced by the content specified in an
-    argument to the template.-->
-<main th:replace="${content}">
-    Example page content
-</main>
+    <!--The main content of the page. This element is replaced by the content specified in an
+        argument to the template.-->
+    <main th:replace="${content}">
+        Example page content
+    </main>
+</div>
 
 <!--A footer at the bottom of each page this is usually styled pretty differently from the rest of the page-->
-<footer>
-    I am a footer and am at the bottom of the site.
-    We can put credits, copyright and other stuff down here.
+<footer class="main-footer">
+    <div class="content-wrapper">
+        I am a footer and am at the bottom of the site.
+        We can put credits, copyright and other stuff down here.
+    </div>
 </footer>
 </body>
 </html>

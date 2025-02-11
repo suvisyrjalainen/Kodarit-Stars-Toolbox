@@ -2,6 +2,35 @@ body {
     font-family: sans-serif;
 }
 
-footer {
+
+.main-header {
+    background-color: darkgreen;
+    color: white;
+}
+
+.primary-nav {
+    display: flex;
+    justify-content: center;
+
+    > a {
+        padding: 1rem;
+        color: white;
+        text-decoration: none;
+
+        &:hover, &:focus-visible {
+            background-color: green;
+            outline: none;
+        }
+    }
+}
+
+.content-wrapper {
+    max-width: 1000px;
+    margin-inline: auto;
+}
+
+.main-footer {
+    background-color: lightgray;
     margin-top: 2rem;
+    padding-block: 1rem;
 }
