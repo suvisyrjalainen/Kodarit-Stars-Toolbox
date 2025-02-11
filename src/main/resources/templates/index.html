@@ -1,6 +1,7 @@
 <!--See test.html and layout.html for explanation-->
 <!doctype html>
-<html th:replace="~{layout::base-page('Main Page', ~{::content})}">
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout::base-page('Main Page', ~{::content})}">
 <body>
 <main th:fragment="content">
     Main page content. Explain our site and its purpose.
