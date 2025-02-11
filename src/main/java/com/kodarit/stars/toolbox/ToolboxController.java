@@ -18,4 +18,9 @@ public class ToolboxController {
     public String test() {
         return "test";
     }
+
+    @GetMapping("/suvintest")
+    public String suvintest() {
+        return "suvin_test";
+    }
 }
