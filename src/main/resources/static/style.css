@@ -1,12 +1,18 @@
 body {
+    --accent-color: #168a16;
+    --accent-color-light-1: color-mix(in oklab, var(--accent-color), white 10%);
+    --background-color: #ffffff;
+    --footer-color: color-mix(in oklab, var(--background-color), black 10%);
+    --text-color: #000000;
+    --nav-text-color: #ffffff;
+
     font-family: sans-serif;
-    background-color: pink;
+    background-color: var(--background-color);
 }
 
-
 .main-header {
-    background-color: darkgreen;
-    color: white;
+    background-color: var(--accent-color);
+    color: var(--nav-text-color);
 }
 
 .primary-nav {
@@ -15,11 +21,11 @@ body {
 
     > a {
         padding: 1rem;
-        color: white;
+        color: var(--nav-text-color);
         text-decoration: none;
 
         &:hover, &:focus-visible {
-            background-color: green;
+            background-color: var(--accent-color-light-1);
             outline: none;
         }
     }
@@ -31,7 +37,7 @@ body {
 }
 
 .main-footer {
-    background-color: lightgray;
+    background-color: var(--footer-color);
     margin-top: 2rem;
     padding-block: 1rem;
 }
