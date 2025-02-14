@@ -23,4 +23,9 @@ public class ToolboxController {
     public String suvintest() {
         return "suvin_test";
     }
+
+    @GetMapping("/base_converter")
+    public String baseConverter() {
+        return "base_converter";
+    }
 }
