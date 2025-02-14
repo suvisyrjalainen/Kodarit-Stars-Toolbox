@@ -28,4 +28,9 @@ public class ToolboxController {
     public String url() {
         return "url";
     }
+
+    @GetMapping("/base_converter")
+    public String baseConverter() {
+        return "base_converter";
+    }
 }
