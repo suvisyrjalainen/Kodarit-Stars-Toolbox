@@ -42,7 +42,7 @@ body {
     padding-block: 1rem;
 }
 
-.output {
+.url-output {
     border: thin solid black;
     word-break: break-all;
     max-height: 10em;
