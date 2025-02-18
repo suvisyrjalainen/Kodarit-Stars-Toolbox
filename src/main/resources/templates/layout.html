@@ -11,7 +11,13 @@
     <!--Set the page title using a parameter of the template.
         The text inside the element is replaced with the value of the variable by thymeleaf.-->
     <title th:text="${title}">Example Title</title>
+    <th:block th:if="${pageCss}">
+        <link rel="stylesheet" th:href="@{/css/{file}(file=${pageCss})}">
+    </th:block>
 </head>
+<th:block th:if="${pageJs}">
+    <script th:src="@{/js/{file}(file=${pageJs})}" defer></script>
+</th:block>
 <body>
 
 <!--A header at the top where we can put links to different pages-->

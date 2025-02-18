@@ -1,6 +1,7 @@
 package com.kodarit.stars.toolbox;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
@@ -30,7 +31,9 @@ public class ToolboxController {
     }
 
     @GetMapping("/base_converter")
-    public String baseConverter() {
+    public String baseConverter(Model model) {
+        model.addAttribute("pageCss", "base_converter.css");
+        model.addAttribute("pageJs", "base_converter.js");
         return "base_converter";
     }
 }
