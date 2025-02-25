@@ -36,4 +36,9 @@ public class ToolboxController {
         model.addAttribute("pageJs", "base_converter.js");
         return "base_converter";
     }
+
+    @GetMapping("/ville")
+    public String ville() {
+        return "ville";
+    }
 }

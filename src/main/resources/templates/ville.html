@@ -1,0 +1,15 @@
+﻿<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout::base-page('Ville', ~{::content})}">
+<body>
+<main th:fragment="content">
+  <p id="ville-content">Ville's page.</p>
+  <button id="change-content-button" class="cool-button">Change Content</button>
+  <script>
+    document.getElementById('change-content-button').onclick = function() {
+      document.getElementById('ville-content').textContent = 'The content has been changed!';
+    };
+  </script>
+</main>
+</body>
+</html>
