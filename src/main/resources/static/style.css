@@ -39,6 +39,7 @@ body {
     max-width: 1000px;
     width: 100%;
     justify-self: center;
+    padding-inline: 1rem;
 }
 
 .main-footer {
