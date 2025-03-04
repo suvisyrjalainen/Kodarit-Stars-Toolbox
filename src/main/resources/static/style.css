@@ -8,6 +8,10 @@ body {
 
     font-family: sans-serif;
     background-color: var(--background-color);
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
 }
 
 .main-header {
@@ -33,7 +37,8 @@ body {
 
 .content-wrapper {
     max-width: 1000px;
-    margin-inline: auto;
+    width: 100%;
+    justify-self: center;
 }
 
 .main-footer {
