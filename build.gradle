@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.4.2'
 	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.google.cloud.tools.jib' version '3.3.2'
 }
 
 group = 'com.kodarit.stars'
@@ -22,6 +23,19 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+jib {
+	from {
+		image = "openjdk:23-jdk"
+	}
+	to {
+		image = 'kodarit_stars/toolbox'
+	}
+	container {
+		mainClass("com.kodarit.stars.toolbox.ToolboxApplication")
+		ports = ["8080"]
+	}
 }
 
 tasks.named('test') {
