@@ -30,7 +30,11 @@ jib {
 		image = "openjdk:23-jdk"
 	}
 	to {
-		image = 'kodarit_stars/toolbox'
+		image = 'ghcr.io/suvisyrjalainen/stars-toolbox'
+		auth {
+			username = System.env.GHCR_USERNAME ?: ""
+			password = System.env.GHCR_TOKEN ?: ""
+		}
 	}
 	container {
 		mainClass("com.kodarit.stars.toolbox.ToolboxApplication")

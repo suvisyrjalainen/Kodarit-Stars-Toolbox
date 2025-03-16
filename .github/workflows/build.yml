@@ -1,0 +1,32 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      # Get current code from GitHub
+      - name: Checkout
+        uses: actions/checkout@v4
+      # Install Java
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 23
+      # Set up caching of gradle dependencies for speed
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+      # Build project (runs tests and ensure that regular build works)
+      - name: Build with Gradle
+        run: ./gradlew build
+      # Upload image to the container repository
+      - name: Build and upload image
+        run: ./gradlew jib
+        env:
+          GHCR_USERNAME: ${{ github.actor }}
+          GHCR_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
