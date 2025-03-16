@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout::base-page('Base Converter', ~{::content})}">
+      th:replace="~{util/layout::base-page('Base Converter', ~{::content})}">
 <body>
 <main th:fragment="content" class="base-converter">
     <script th:src="@{/js/base_converter.js}" defer></script>

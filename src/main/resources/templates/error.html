@@ -1,6 +1,6 @@
 <!doctype html>
 <html xmlns:th="http://www.thymeleaf.org"
-      th:replace="~{layout::base-page(${errorTitle}, ~{::content})}">
+      th:replace="~{util/layout::base-page(${errorTitle}, ~{::content})}">
 <body>
 <main th:fragment="content">
     <h3 th:text="${errorMessage}" th:if="${errorMessage}"></h3>
