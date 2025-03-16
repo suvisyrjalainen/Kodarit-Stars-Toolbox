@@ -46,6 +46,14 @@ body {
     background-color: var(--footer-color);
     margin-top: 2rem;
     padding-block: 1rem;
+
+    > .content-wrapper {
+        text-align: center;
+    }
+
+    .footer-links {
+        margin-top: 1rem;
+    }
 }
 
 .url-output {
