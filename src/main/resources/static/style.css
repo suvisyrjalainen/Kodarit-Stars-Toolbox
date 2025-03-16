@@ -17,6 +17,8 @@ body {
 .main-header {
     background-color: var(--accent-color);
     color: var(--nav-text-color);
+    min-height: 50px;
+    position: relative;
 }
 
 .primary-nav {
@@ -27,11 +29,42 @@ body {
         padding: 1rem;
         color: var(--nav-text-color);
         text-decoration: none;
+        width: max-content;
 
         &:hover, &:focus-visible {
             background-color: var(--accent-color-light-1);
             outline: none;
         }
+    }
+}
+
+#nav-toggle {
+    display: none;
+    height: 100%;
+    aspect-ratio: 1;
+    margin: 0 0 0 auto;
+    appearance: none;
+    background-image: url("/icons/list.svg");
+    background-size: contain;
+}
+
+@media screen and (width < 600px) {
+    .primary-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+
+        background-color: var(--accent-color);
+        flex-direction: column;
+    }
+
+    :has(#nav-toggle:checked) .primary-nav {
+        display: flex;
+    }
+
+    #nav-toggle {
+        display: block;
     }
 }
 
