@@ -96,3 +96,14 @@ body {
     max-height: 10em;
     overflow: auto;
 }
+
+/* Apply a consistent box-sizing rule */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Ensure html and body don’t cause horizontal scroll */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
