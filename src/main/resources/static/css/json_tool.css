@@ -1,0 +1,11 @@
+#json-field {
+    display: block;
+    resize: vertical;
+    width: 100%;
+    height: 350px;
+}
+
+.json-tool-error {
+    color: var(--error-color);
+    margin-bottom: .5rem;
+}

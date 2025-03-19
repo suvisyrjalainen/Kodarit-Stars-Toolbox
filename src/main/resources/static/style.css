@@ -1,4 +1,5 @@
 body {
+    --error-color: #8f1100;
     --accent-color: #168a16;
     --accent-color-light-1: color-mix(in oklab, var(--accent-color), white 10%);
     --background-color: #ffffff;

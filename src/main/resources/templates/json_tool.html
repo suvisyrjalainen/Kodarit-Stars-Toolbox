@@ -1,0 +1,30 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{util/layout::base-page('Json Reformatter', ~{::content})}">
+<body>
+<main th:fragment="content" class="base-converter">
+    <section class="json-tool-error" th:if="${jsonError != null}">
+        <strong>Error:</strong>
+        <br>
+        <span th:text="${jsonError}"></span>
+    </section>
+
+    <form method="post" enctype="multipart/form-data">
+        <label for="json-field">Json text:</label>
+        <textarea name="json" id="json-field" th:text="${jsonContent} ?: _" placeholder="Enter json"></textarea>
+
+        <p>
+            <input type="radio" name="mode" id="prettify-button" value="prettify" required checked>
+            <label for="prettify-button">Prettify</label>
+
+            <input type="radio" name="mode" id="minify-button" value="minify" required>
+            <label for="minify-button">Minify</label>
+        </p>
+
+        <button type="submit">
+            Apply
+        </button>
+    </form>
+</main>
+</body>
+</html>
