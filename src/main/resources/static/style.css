@@ -74,3 +74,14 @@ body {
     color: var(--text-color);
     margin-bottom: 20px;
 }
+
+/* Apply a consistent box-sizing rule */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* Ensure html and body don’t cause horizontal scroll */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
