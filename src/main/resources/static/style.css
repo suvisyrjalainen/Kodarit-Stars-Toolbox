@@ -41,6 +41,7 @@ body {
 #nav-toggle {
     display: none;
     height: 100%;
+    width: auto;
     aspect-ratio: 1;
     margin: 0 0 0 auto;
     appearance: none;
