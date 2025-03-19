@@ -40,13 +40,13 @@ body {
 
 #nav-toggle {
     display: none;
-    height: 100%;
-    width: auto;
-    aspect-ratio: 1;
+    height: 50px;
+    width: 50px;
     margin: 0 0 0 auto;
     appearance: none;
     background-image: url("/icons/list.svg");
     background-size: contain;
+    background-repeat: no-repeat;
 }
 
 @media screen and (width < 600px) {
@@ -95,15 +95,4 @@ body {
     word-break: break-all;
     max-height: 10em;
     overflow: auto;
-}
-
-/* Apply a consistent box-sizing rule */
-*, *::before, *::after {
-    box-sizing: border-box;
-}
-
-/* Ensure html and body don’t cause horizontal scroll */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
 }
