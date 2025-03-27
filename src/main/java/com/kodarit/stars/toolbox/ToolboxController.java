@@ -36,4 +36,7 @@ public class ToolboxController {
         model.addAttribute("pageJs", "base_converter.js");
         return "base_converter";
     }
+
+    @GetMapping("/image-resizer")
+    public String imageResizer() {return "image-resizer";}
 }
