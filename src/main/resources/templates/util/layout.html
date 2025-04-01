@@ -43,10 +43,7 @@
 </div>
 
 <!--A footer at the bottom of each page this is usually styled pretty differently from the rest of the page-->
-<footer class="main-footer">
-    <div class="content-wrapper">
-        <th:block th:replace="~{util/footer::footer}"></th:block>
-    </div>
+<footer class="main-footer" th:insert="~{util/footer::footer}">
 </footer>
 </body>
 </html>
