@@ -1,84 +1,148 @@
 ﻿<!doctype html>
 <html xmlns:th="http://www.thymeleaf.org" th:replace="~{util/layout::base-page('Resize Image', ~{::content})}">
-<meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
 <body>
 <main th:fragment="content">
   <h2>Image Resizer Tool</h2>
   
-  <div class="tool-description">
-    <p>Upload an image to resize it to your desired dimensions. Maximum file size is 10MB.</p>
-    <p>Supported formats: JPEG, PNG, GIF, BMP</p>
+  <div>
+    <p>Upload an image to resize it to your desired dimensions. Maximum file size is 10MB. Supported formats: JPEG, PNG, GIF, BMP</p>
   </div>
-  
-  <form action="/tools/image-resizer/process" method="post" enctype="multipart/form-data" id="resizeForm">
-    <div class="form-group">
-      <label for="imageFile">Choose image:</label>
-      <input type="file" id="imageFile" name="imageFile" accept="image/*" required>
-      <small>Max file size: 10MB</small>
-    </div>
 
-    <div class="form-group">
-      <label for="width">New width (px):</label>
-      <input type="number" id="width" name="width" min="1" max="5000" value="800" required>
-    </div>
-
-    <div class="form-group">
-      <label for="height">New height (px):</label>
-      <input type="number" id="height" name="height" min="1" max="5000" value="600" required>
-    </div>
-
-    <button type="submit" class="btn btn-primary" id="resizeButton">Resize</button>
-  </form>
-  
-  <div id="loadingIndicator" style="display: none;" class="mt-3">
-    <div class="d-flex align-items-center">
-      <strong>Processing image...</strong>
-      <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
-    </div>
-    <small class="text-muted">This may take a moment for large images</small>
-  </div>
-  
   <div th:if="${errorMessage}" class="alert alert-danger mt-3">
     <p th:text="${errorMessage}"></p>
   </div>
-  
-  <div th:if="${resizedImage}" class="mt-4">
-    <h3>Resized Image</h3>
-    <div class="image-container">
-      <img th:src="${resizedImage}" alt="Resized image" class="img-fluid"/>
+
+  <!-- Two-column layout -->
+  <div class="resize-container">
+    <!-- Left column - Main controls -->
+    <div class="resize-controls">
+      <form action="/tools/image-resizer/process" method="post" enctype="multipart/form-data" id="resizeForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="imageFile">Select Image</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*" class="form-control">
+          </div>
+
+          <div class="form-group dimension-controls">
+            <div class="dimension-input">
+              <label for="width">Width (px)</label>
+              <input type="number" id="width" name="width" min="1" max="5000" th:value="${originalWidth != null ? originalWidth : 1920}" class="form-control" required>
+            </div>
+
+            <div class="dimension-input">
+              <label for="height">Height (px)</label>
+              <input type="number" id="height" name="height" min="1" max="5000" th:value="${originalHeight != null ? originalHeight : 1080}" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-group preset-controls">
+            <label for="presetSelect">Common Resolutions:</label>
+            <select id="presetSelect" name="presetSelect" class="form-control">
+              <option value="">Select resolution</option>
+              <option value="640,480">640 x 480</option>
+              <option value="800,600">800 x 600</option>
+              <option value="1024,768">1024 x 768</option>
+              <option value="1280,720">1280 x 720</option>
+              <option value="1920,1080">1920 x 1080</option>
+              <option value="2560,1440">2560 x 1440</option>
+              <option value="3840,2160">3840 x 2160</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="resizeButton">
+            <span class="spinner-border d-none" id="loadingSpinner" role="status"></span>
+            <span id="buttonText">Resize Image</span>
+          </button>
+        </div>
+      </form>
     </div>
-    <div class="mt-2">
-      <a th:href="${resizedImage}" download="resized-image" class="btn btn-success">Download Image</a>
+
+    <!-- Right column - Image preview -->
+    <div class="resize-preview">
+      <div th:if="${resizedImage}" class="image-result">
+        <div class="image-controls">
+          <div class="mouse-button-viewer">
+          </div>
+        </div>
+
+        <div class="image-container" id="imageContainer">
+          <div class="cursor-position" id="cursorPosition"></div>
+          <img th:src="${resizedImage}" alt="Resized image" class="img-fluid" id="resizedImageOutput">
+        </div>
+        <div class="download-button-wrapper">
+          <button class="btn btn-sm" id="downloadBtn" title="Download Image">
+             <span>Download</span>
+          </button>
+          <span id="resolution" th:text="'Resolution: ' + ${originalWidth} + ' x ' + ${originalHeight}"></span>
+        </div>
+      </div>
+
+      <div th:unless="${resizedImage}" class="placeholder-message">
+        <p>Your resized image will appear here</p>
+      </div>
     </div>
   </div>
-  
-  <script>
-    document.getElementById('resizeForm').onsubmit = function() {
-      const fileInput = document.getElementById('imageFile');
-      const file = fileInput.files[0];
-      
-      if (!file) {
-        alert('Please select an image file');
-        return false;
-      }
-      
-      if (file.size > 10 * 1024 * 1024) {
-        alert('File size exceeds the maximum limit of 10MB');
-        return false;
-      }
-      
-      // Show loading indicator
-      document.getElementById('loadingIndicator').style.display = 'block';
-      document.getElementById('resizeButton').disabled = true;
-      
-      return true;
-    };
-    
-    // Reset loading state if we're back on the page after form submission
-    if (performance.navigation.type === 1) { // 1 is PAGE_RELOAD
-      document.getElementById('loadingIndicator').style.display = 'none';
-      document.getElementById('resizeButton').disabled = false;
-    }
+
+
+  <script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.getElementById('resizeForm');
+      const spinner = document.getElementById('loadingSpinner');
+      const buttonText = document.getElementById('buttonText');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const widthInput = document.getElementById('width');
+      const heightInput = document.getElementById('height');
+      const presetSelect = document.getElementById('presetSelect');
+
+      // Show spinner only after submit
+      form.addEventListener('submit', function() {
+        spinner.classList.remove('d-none');
+        buttonText.textContent = 'Resizing...';
+      });
+
+      // Track cursor position
+      const resizedImageOutput = document.getElementById('resizedImageOutput');
+      const cursorPosition = document.getElementById('cursorPosition');
+
+      resizedImageOutput.addEventListener('load', function() {
+        // Ensure spinner is hidden on reload:
+        document.getElementById('loadingSpinner').classList.add('d-none');
+      });
+
+      resizedImageOutput.addEventListener('mousemove', function(e) {
+        const rect = resizedImageOutput.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const naturalW = resizedImageOutput.naturalWidth;
+        const naturalH = resizedImageOutput.naturalHeight;
+        const scaleX = naturalW / resizedImageOutput.clientWidth;
+        const scaleY = naturalH / resizedImageOutput.clientHeight;
+        cursorPosition.textContent = `X: ${Math.round(x * scaleX)}, Y: ${Math.round(y * scaleY)}`;
+      });
+
+      downloadBtn.addEventListener('click', function() {
+        const resizedImg = document.getElementById('resizedImageOutput');
+        if (!resizedImg || !resizedImg.src) return;
+
+        const link = document.createElement('a');
+        link.href = resizedImg.src;
+        link.download = 'resized-image';
+        link.click();
+      });
+
+      presetSelect.addEventListener('change', function() {
+        if (this.value) {
+          const [presetWidth, presetHeight] = this.value.split(',').map(Number);
+          widthInput.value = presetWidth;
+          heightInput.value = presetHeight;
+        }
+      });
+
+    });
   </script>
 </main>
 </body>
