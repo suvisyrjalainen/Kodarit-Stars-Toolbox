@@ -1,6 +1,9 @@
 package com.kodarit.stars.toolbox;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.util.DefaultIndenter;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
+import com.fasterxml.jackson.core.util.Separators;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
@@ -14,6 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class JsonToolController {
     private final ObjectMapper objectMapper = JsonMapper.builder()
             .enable(DeserializationFeature.FAIL_ON_TRAILING_TOKENS)
+            .defaultPrettyPrinter(new DefaultPrettyPrinter()
+                    .withSeparators(Separators.createDefaultInstance()
+                            .withObjectFieldValueSpacing(Separators.Spacing.AFTER))
+                    .withArrayIndenter(DefaultIndenter.SYSTEM_LINEFEED_INSTANCE))
             .build();
 
     @GetMapping("/json_tool")

@@ -1,6 +1,7 @@
 <!--The base layout used by all pages. Takes in a page title and a fragment of content-->
 <html xmlns:th="http://www.thymeleaf.org"
-      th:fragment="base-page(title, content)">
+      th:fragment="base-page(title, content)"
+      lang="en">
 <head>
     <!--Standard html metadata stuff. Here to avoid duplication across pages-->
     <meta charset="UTF-8">
@@ -25,7 +26,7 @@
     <input type="checkbox" id="nav-toggle">
     <nav class="primary-nav">
         <a th:href="@{/}">Home</a>
-        <a th:href="@{/url}">URL</a>
+        <a th:href="@{/data_url_converter}">Data Url Converter</a>
         <a th:href="@{/base_converter}">Base Converter</a>
         <a th:href="@{/json_tool}">Json Formatter</a>
     </nav>
@@ -43,10 +44,7 @@
 </div>
 
 <!--A footer at the bottom of each page this is usually styled pretty differently from the rest of the page-->
-<footer class="main-footer">
-    <div class="content-wrapper">
-        <th:block th:replace="~{util/footer::footer}"></th:block>
-    </div>
+<footer class="main-footer" th:insert="~{util/footer::footer}">
 </footer>
 </body>
 </html>
