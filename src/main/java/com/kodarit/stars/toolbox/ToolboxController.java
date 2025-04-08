@@ -1,5 +1,6 @@
 package com.kodarit.stars.toolbox;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,5 +39,16 @@ public class ToolboxController {
     }
 
     @GetMapping("/image-resizer")
-    public String imageResizer() {return "image-resizer";}
+    public String showImageResizerPage(Model model, HttpSession session) {
+        model.addAttribute("pageCss", "image_resizer.css");
+        model.addAttribute("pageJs", "image_resizer.js");
+        String lastResized = (String) session.getAttribute("resizedImage");
+        if (lastResized != null) {
+            model.addAttribute("resizedImage", lastResized);
+            model.addAttribute("originalWidth", session.getAttribute("originalWidth"));
+            model.addAttribute("originalHeight", session.getAttribute("originalHeight"));
+        }
+        return "image_resizer";
+    }
+
 }

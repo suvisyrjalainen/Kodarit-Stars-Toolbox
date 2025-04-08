@@ -11,12 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import jakarta.servlet.http.HttpSession;
-import java.io.ByteArrayInputStream;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
+import java.io.IOException;
+
+/**
+ * Controller for handling image resizing requests.
+ * Processes image upload, validates input, and sets the resized image data for display.
+ */
 @Controller
 public class ImageResizerController {
 
@@ -29,18 +30,20 @@ public class ImageResizerController {
         this.imageResizer = imageResizer;
     }
 
-    @GetMapping("/tools/image-resizer")
-    public String showImageResizerPage(Model model, HttpSession session) {
-        String lastResized = (String) session.getAttribute("resizedImage");
-        if (lastResized != null) {
-            model.addAttribute("resizedImage", lastResized);
-            model.addAttribute("originalWidth", session.getAttribute("originalWidth"));
-            model.addAttribute("originalHeight", session.getAttribute("originalHeight"));
-        }
-        return "image-resizer";
-    }
-
-    @PostMapping("/tools/image-resizer/process")
+    /**
+     * Handles the image resizing request.
+     *
+     * Validates the uploaded file, dimensions, and file size.
+     * If validation passes, resizes the image and stores it in session and model.
+     *
+     * @param imageFile the image file to resize; may be null or empty.
+     * @param width the target width in pixels
+     * @param height the target height in pixels
+     * @param model the UI model to update
+     * @param session HTTP session for storing image data
+     * @return a redirect to the image resizer page on success; otherwise, returns the image resizer view with an error message
+     */
+    @PostMapping("/image-resizer/process")
     public String resizeImage(@RequestParam(name = "imageFile", required = false) MultipartFile imageFile,
                               @RequestParam("width") int width,
                               @RequestParam("height") int height,
@@ -49,19 +52,19 @@ public class ImageResizerController {
         try {
             if (imageFile == null || imageFile.isEmpty()) {
                 model.addAttribute("errorMessage", "Please select an image file");
-                return "image-resizer";
+                return "image_resizer";
             }
 
             // Check file size
             if (imageFile.getSize() > MAX_FILE_SIZE) {
                 model.addAttribute("errorMessage", "File size exceeds the maximum limit of 10MB");
-                return "image-resizer";
+                return "image_resizer";
             }
 
             // Validate dimensions
             if (width <= 0 || height <= 0 || width > 5000 || height > 5000) {
                 model.addAttribute("errorMessage", "Invalid dimensions. Width and height must be between 1 and 5000 pixels");
-                return "image-resizer";
+                return "image_resizer";
             }
 
             LOGGER.info("Processing image: {} (size: {} bytes, dimensions: {}x{})",
@@ -74,7 +77,7 @@ public class ImageResizerController {
             session.setAttribute("originalHeight", height);
             LOGGER.info("Image resized successfully");
 
-            return "redirect:/tools/image-resizer";
+            return "redirect:/image-resizer";
 
         } catch (IOException e) {
             LOGGER.error("Error reading image file", e);
@@ -87,6 +90,6 @@ public class ImageResizerController {
             model.addAttribute("errorMessage", "Error processing image: " + e.getMessage());
         }
 
-        return "image-resizer";
+        return "image_resizer";
     }
 }
