@@ -6,10 +6,10 @@
 <!--This element acts as the content of the page. It'll get deleted along with the body tag above due to the th::replace
     on the <html>, but before then the code is copied into the base page template.-->
 <main th:fragment="content">
-    <p><strong>
+    <p>
         This tool lets you convert files into a Data URL. The tool encodes the file into a string that you can embed
         directly in HTML or CSS.
-    </strong></p>
+    </p>
     <div id="status">Valitse tiedosto</div>
     <input type="file" id="file">
     <div id="alue" class="url-output" style="display: none;"></div>
