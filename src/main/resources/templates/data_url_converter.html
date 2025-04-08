@@ -1,11 +1,15 @@
 <!--Declare doctype and body to make this a valid html document-->
 <!doctype html>
 <!--Pull in the base page layout and pass in the content fragment-->
-<html th:replace="~{util/layout::base-page('URL', ~{::content})}">
+<html th:replace="~{util/layout::base-page('Data URL Converter', ~{::content})}">
 <body>
 <!--This element acts as the content of the page. It'll get deleted along with the body tag above due to the th::replace
     on the <html>, but before then the code is copied into the base page template.-->
 <main th:fragment="content">
+    <p><strong>
+        This tool lets you convert files into a Data URL. The tool encodes the file into a string that you can embed
+        directly in HTML or CSS.
+    </strong></p>
     <div id="status">Valitse tiedosto</div>
     <input type="file" id="file">
     <div id="alue" class="url-output" style="display: none;"></div>
