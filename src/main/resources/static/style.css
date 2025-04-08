@@ -5,7 +5,7 @@ body {
     --background-color: #ffffff;
     --footer-color: color-mix(in oklab, var(--background-color), black 10%);
     --text-color: #000000;
-    --nav-text-color: #ffffff;
+    --nav-text-color: #fffff§f;
 
     font-family: sans-serif;
     background-color: var(--background-color);
@@ -97,3 +97,47 @@ body {
     max-height: 10em;
     overflow: auto;
 }
+
+<button class="primary-button">Click Me</button>
+
+<style>
+:root {
+  --accent-color: #ffffff;
+  --nav-text-color: #000000;
+}
+
+.primary-button {
+  position: relative;
+  padding: 15px 30px;
+  background-color: var(--accent-color);
+  color: var(--nav-text-color);
+  width: 375px;
+  height: 75px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.primary-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  padding: 15px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.3) 120%
+  );
+  z-index: 0;
+  pointer-events: none;
+}
+</style>
+
