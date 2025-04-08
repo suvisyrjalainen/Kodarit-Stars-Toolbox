@@ -25,9 +25,9 @@ public class ToolboxController {
         return "suvin_test";
     }
 
-    @GetMapping("/url")
-    public String url() {
-        return "url";
+    @GetMapping("/data_url_converter")
+    public String data_url_converter() {
+        return "data_url_converter";
     }
 
     @GetMapping("/base_converter")
