@@ -1,0 +1,91 @@
+﻿<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{util/layout::base-page('Resize Image', ~{::content})}">
+<body>
+<main th:fragment="content">
+  <h2>Image Resizer Tool</h2>
+
+  <div>
+    <p>Upload an image to resize it to your desired dimensions. Maximum file size is 10MB. Supported formats: JPEG, PNG, GIF, BMP</p>
+  </div>
+
+  <div th:if="${errorMessage}" class="alert alert-danger mt-3">
+    <p th:text="${errorMessage}"></p>
+  </div>
+
+  <!-- Two-column layout -->
+  <div class="resize-container">
+    <!-- Left column - Main controls -->
+    <div class="resize-controls">
+      <form action="/image-resizer/process" method="post" enctype="multipart/form-data" id="resizeForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="imageFile">Select Image</label>
+            <input type="file" id="imageFile" name="imageFile" accept="image/*" class="form-control">
+          </div>
+
+          <div class="form-group dimension-controls">
+            <div class="dimension-input">
+              <label for="width">Width (px)</label>
+              <input type="number" id="width" name="width" min="1" max="5000" th:value="${originalWidth != null ? originalWidth : 1920}" class="form-control" required>
+            </div>
+
+            <div class="dimension-input">
+              <label for="height">Height (px)</label>
+              <input type="number" id="height" name="height" min="1" max="5000" th:value="${originalHeight != null ? originalHeight : 1080}" class="form-control" required>
+            </div>
+          </div>
+
+          <div class="form-group preset-controls">
+            <label for="presetSelect">Common Resolutions:</label>
+            <select id="presetSelect" name="presetSelect" class="form-control">
+              <option value="">Select resolution</option>
+              <option value="640,480">640 x 480</option>
+              <option value="800,600">800 x 600</option>
+              <option value="1024,768">1024 x 768</option>
+              <option value="1280,720">1280 x 720</option>
+              <option value="1920,1080">1920 x 1080</option>
+              <option value="2560,1440">2560 x 1440</option>
+              <option value="3840,2160">3840 x 2160</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="resizeButton" disabled>
+            <span class="spinner-border d-none" id="loadingSpinner" role="status"></span>
+            <span id="buttonText">Resize Image</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Right column - Image preview -->
+    <div class="resize-preview">
+      <!-- New frame before output -->
+      <div th:if="${resizedImage}">
+        <div class="frame-before"></div>
+        <div class="image-result output-frame">
+          <div class="image-controls">
+            <div class="mouse-button-viewer">
+            </div>
+          </div>
+          <div class="image-container" id="imageContainer">
+            <div class="cursor-position" id="cursorPosition"></div>
+            <img th:src="${resizedImage}" alt="Resized image" class="img-fluid" id="resizedImageOutput">
+          </div>
+          <div class="download-button-wrapper">
+            <button class="btn btn-sm" id="downloadBtn" title="Download Image">
+              <span>Download</span>
+            </button>
+            <span id="resolution" th:text="'Resolution: ' + ${originalWidth} + ' x ' + ${originalHeight}"></span>
+          </div>
+        </div>
+      </div>
+
+      <div th:unless="${resizedImage}" class="placeholder-message">
+        <p>Your resized image will appear here</p>
+      </div>
+    </div>
+  </div>
+</main>
+</body>
+</html>
