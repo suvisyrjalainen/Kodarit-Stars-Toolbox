@@ -35,6 +35,11 @@
     background-color: var(--accent-color-light-1);
 }
 
+.btn-primary:disabled, .btn-primary[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 /* Utility classes */
 .text-muted {
     color: #6c757d;
