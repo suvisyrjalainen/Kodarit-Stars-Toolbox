@@ -1,0 +1,6 @@
+.output {
+    border: thin solid black;
+    word-break: break-all;
+    max-height: 10em;
+    overflow: auto;
+}

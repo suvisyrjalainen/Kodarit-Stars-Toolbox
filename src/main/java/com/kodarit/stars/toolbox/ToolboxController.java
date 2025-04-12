@@ -27,7 +27,9 @@ public class ToolboxController {
     }
 
     @GetMapping("/data_url_converter")
-    public String data_url_converter() {
+    public String data_url_converter(Model model) {
+        model.addAttribute("pageCss", "data_url.css");
+        model.addAttribute("pageJs", "data_url.js");
         return "data_url_converter";
     }
 
