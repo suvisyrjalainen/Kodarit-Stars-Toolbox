@@ -16,16 +16,6 @@ public class ToolboxController {
         return "index";
     }
 
-    @GetMapping("/test")
-    public String test() {
-        return "test";
-    }
-
-    @GetMapping("/suvintest")
-    public String suvintest() {
-        return "suvin_test";
-    }
-
     @GetMapping("/data_url_converter")
     public String data_url_converter(Model model) {
         model.addAttribute("pageCss", "data_url.css");
