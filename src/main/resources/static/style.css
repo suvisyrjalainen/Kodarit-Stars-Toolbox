@@ -5,7 +5,7 @@ body {
     --background-color: #ffffff;
     --footer-color: color-mix(in oklab, var(--background-color), black 10%);
     --text-color: #000000;
-    --nav-text-color: #fffff§f;
+    --nav-text-color: #ffffff;
 
     font-family: sans-serif;
     background-color: var(--background-color);
@@ -92,13 +92,6 @@ body {
     .footer-links {
         margin-top: 1rem;
     }
-}
-
-.url-output {
-    border: thin solid black;
-    word-break: break-all;
-    max-height: 10em;
-    overflow: auto;
 }
 
 :root {
