@@ -9,3 +9,21 @@
         height: 100%;
     }
 }
+
+.json-element {
+    font-family: monospace;
+}
+
+.json-element > :is(input[type=text], input[type=number]) {
+    font-family: monospace;
+    width: 100%;
+}
+
+.json-boolean {
+    > input:checked + .bool-value-indicator::after {
+        content: 'true'
+    }
+    > input:not(:checked) + .bool-value-indicator::after {
+        content: 'false'
+    }
+}
