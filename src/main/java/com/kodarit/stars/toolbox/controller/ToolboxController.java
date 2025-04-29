@@ -43,4 +43,10 @@ public class ToolboxController {
         return "image_resizer";
     }
 
+    @GetMapping("/json_tree")
+    public String jsonTree(Model model) {
+        model.addAttribute("pageCss", "json_tree.css");
+        model.addAttribute("pageJs", "json_tree.js");
+        return "json_tree";
+    }
 }

@@ -1,0 +1,11 @@
+.add-element-button {
+    --size: 32px;
+    width: var(--size);
+    height: var(--size);
+    padding: 0;
+
+    > img {
+        width: 100%;
+        height: 100%;
+    }
+}

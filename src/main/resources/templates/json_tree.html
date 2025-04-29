@@ -1,0 +1,32 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{util/layout::base-page('Json Tree Viewer', ~{::content})}">
+<body>
+<th:block th:fragment="content">
+    <section class="toolbar">
+        <button th:replace="~{::json-button('object')}"></button>
+        <button th:replace="~{::json-button('array')}"></button>
+        <button th:replace="~{::json-button('string')}"></button>
+        <button th:replace="~{::json-button('number')}"></button>
+        <button th:replace="~{::json-button('boolean')}"></button>
+        <button th:replace="~{::json-button('null')}"></button>
+    </section>
+    <main>
+    <div id="json-area">
+
+    </div>
+    </main>
+
+    <template id="json-string-template">
+        <div>
+            &quot;<input type="text" aria-label="string content">&quot;
+        </div>
+    </template>
+</th:block>
+
+<!-- Thymeleaf fragment for generating the buttons for adding elements -->
+<button th:fragment="json-button(type)" class="add-element-button" th:attr="data-type=${type}">
+    <img th:src="@{/icons/json_tree/{type}.png(type=${type})}" th:alt="'add ' + ${type}">
+</button>
+</body>
+</html>
