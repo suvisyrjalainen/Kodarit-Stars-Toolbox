@@ -1,4 +1,4 @@
-package com.kodarit.stars.toolbox;
+package com.kodarit.stars.toolbox.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultIndenter;

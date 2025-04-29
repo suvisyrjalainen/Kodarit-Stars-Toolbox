@@ -1,4 +1,4 @@
-package com.kodarit.stars.toolbox;
+package com.kodarit.stars.toolbox.controller;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
