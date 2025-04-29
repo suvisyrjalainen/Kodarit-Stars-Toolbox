@@ -29,3 +29,9 @@ for (const button of document.querySelectorAll(".add-element-button")) {
     const type = button.dataset.type
     button.addEventListener("click", () => createValue(type))
 }
+
+createValue("array")
+createValue("number")
+
+document.querySelector(".json-array > details")
+    .appendChild(document.querySelector(".json-number"))

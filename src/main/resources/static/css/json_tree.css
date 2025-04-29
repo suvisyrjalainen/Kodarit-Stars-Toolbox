@@ -10,20 +10,48 @@
     }
 }
 
+#json-area {
+    --element-height: 2em;
+}
+
 .json-element {
+    padding: 0.25em;
     font-family: monospace;
+    height: var(--element-height);
 }
 
 .json-element > :is(input[type=text], input[type=number]) {
     font-family: monospace;
-    width: 100%;
+    height: 100%;
 }
 
 .json-boolean {
+    display: flex;
+    align-items: center;
+
     > input:checked + .bool-value-indicator::after {
         content: 'true'
     }
     > input:not(:checked) + .bool-value-indicator::after {
         content: 'false'
+    }
+}
+
+.json-array {
+    height: auto;
+}
+
+.json-array > details {
+    > :not(summary) {
+        margin-left: 2rem;
+    }
+
+    > summary {
+        line-height: var(--element-height);
+        height: var(--element-height);
+    }
+
+    .drag-info {
+        order: 100;
     }
 }
