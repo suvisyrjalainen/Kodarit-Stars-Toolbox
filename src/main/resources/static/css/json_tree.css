@@ -1,17 +1,20 @@
 .add-element-button {
     --size: 32px;
-    width: var(--size);
-    height: var(--size);
+    background-color: var(--footer-color);
+    border: none;
+    border-radius: 5px;
     padding: 0;
 
     > img {
-        width: 100%;
-        height: 100%;
+        display: block;
+        width: var(--size);
+        height: var(--size);
     }
 }
 
 #json-area {
     --element-height: 2em;
+    --element-indent: 2em;
 }
 
 .json-element {
@@ -42,16 +45,22 @@
 }
 
 .json-array > details {
-    > :not(summary) {
-        margin-left: 2rem;
-    }
-
     > summary {
         line-height: var(--element-height);
         height: var(--element-height);
     }
+}
 
-    .drag-info {
-        order: 100;
+.json-array-content {
+    padding: 0;
+    margin: 0 0 0 var(--element-indent);
+    border-left: 1px solid gray;
+
+    > li {
+        list-style-type: none;
     }
+}
+
+.drag-info {
+    margin: 0 0 0 var(--element-indent);
 }

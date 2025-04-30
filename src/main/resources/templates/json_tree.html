@@ -16,31 +16,35 @@
 
     </div>
 
-    <template id="json-string-template">
-        <div class="json-element json-string">
+    <template id="json-string-template" class="json-element-template">
+        <div class="json-element json-string" data-type="string">
             &quot;<input type="text" aria-label="string content">&quot;
         </div>
     </template>
-    <template id="json-number-template">
-        <div class="json-element json-number">
-            <input type="number" aria-label="number value">
+    <template id="json-number-template" class="json-element-template">
+        <div class="json-element json-number" data-type="number">
+            <input type="number" aria-label="number value" value="0">
         </div>
     </template>
-    <template id="json-boolean-template">
-        <div class="json-element json-boolean">
+    <template id="json-boolean-template" class="json-element-template">
+        <div class="json-element json-boolean" data-type="boolean">
             <input type="checkbox" aria-label="boolean value"><span class="bool-value-indicator"></span>
         </div>
     </template>
-    <template id="json-null-template">
-        <div class="json-element json-null">
+    <template id="json-null-template" class="json-element-template">
+        <div class="json-element json-null" data-type="null">
             null
         </div>
     </template>
-    <template id="json-array-template">
-        <div class="json-element json-array">
+    <template id="json-array-template" class="json-element-template">
+        <div class="json-element json-array" data-type="array">
             <details>
                 <summary>[...]</summary>
+                <div class="json-array-symbol">[</div>
+                <ul class="json-array-content">
+                </ul>
                 <em class="drag-info">Drag here to add children...</em>
+                <div>]</div>
             </details>
         </div>
     </template>
