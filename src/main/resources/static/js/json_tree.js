@@ -174,8 +174,39 @@ function addToContainer(container, node) {
 
 // Setup buttons
 for (const button of document.querySelectorAll(".add-element-button")) {
+    /**
+     * @type {JsonType}
+     */
     const type = button.dataset.type
     button.addEventListener("click", () => jsonArea.appendChild(createValue(type)))
+    button.addEventListener("dragstart", event => {
+        let jsonData;
+        switch (type) {
+            case "null":
+                jsonData = "null"
+                break
+            case "boolean":
+                jsonData = "false"
+                break
+            case "string":
+                jsonData = "\"\""
+                break
+            case "number":
+                jsonData = "0"
+                break
+            case "object":
+                jsonData = "{}"
+                break
+            case "array":
+                jsonData = "[]"
+                break
+        }
+        // Clear default dragging from button + image
+        event.dataTransfer.items.clear()
+
+        event.dataTransfer.setData("application/json", jsonData)
+        event.dataTransfer.setData("text/plain", jsonData)
+    })
 }
 
 // Test json
