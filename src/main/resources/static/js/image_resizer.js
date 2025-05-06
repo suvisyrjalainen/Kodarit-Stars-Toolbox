@@ -38,35 +38,37 @@ document.addEventListener('DOMContentLoaded', function() {
   const resizedImageOutput = document.getElementById('resizedImageOutput');
   const cursorPosition = document.getElementById('cursorPosition');
 
-  // When the resized image is loaded, hide the spinner
-  resizedImageOutput.addEventListener('load', function() {
-    spinner.classList.add('d-none');
-  });
-
-  // Update cursor position overlay when moving the mouse over the image
-  resizedImageOutput.addEventListener('mousemove', function(e) {
-    const rect = resizedImageOutput.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const naturalW = resizedImageOutput.naturalWidth;
-    const naturalH = resizedImageOutput.naturalHeight;
-    const scaleX = naturalW / resizedImageOutput.clientWidth;
-    const scaleY = naturalH / resizedImageOutput.clientHeight;
-    cursorPosition.textContent = `X: ${Math.round(x * scaleX)}, Y: ${Math.round(y * scaleY)}`;
-  });
-
-  // Handle download button click to download the resized image
-  if (downloadBtn) {
-    downloadBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (!resizedImageOutput || !resizedImageOutput.src) return;
-      const link = document.createElement('a');
-      link.href = resizedImageOutput.src;
-      link.download = 'resized-image';
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+  if (resizedImageOutput) {
+    // When the resized image is loaded, hide the spinner
+    resizedImageOutput.addEventListener('load', function() {
+      spinner.classList.add('d-none');
     });
+
+    // Update cursor position overlay when moving the mouse over the image
+    resizedImageOutput.addEventListener('mousemove', function(e) {
+      const rect = resizedImageOutput.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const naturalW = resizedImageOutput.naturalWidth;
+      const naturalH = resizedImageOutput.naturalHeight;
+      const scaleX = naturalW / resizedImageOutput.clientWidth;
+      const scaleY = naturalH / resizedImageOutput.clientHeight;
+      cursorPosition.textContent = `X: ${Math.round(x * scaleX)}, Y: ${Math.round(y * scaleY)}`;
+    });
+
+    // Handle download button click to download the resized image
+    if (downloadBtn) {
+      downloadBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (!resizedImageOutput || !resizedImageOutput.src) return;
+        const link = document.createElement('a');
+        link.href = resizedImageOutput.src;
+        link.download = 'resized-image';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
   }
 
   // Handle preset dimension selection to update width and height inputs
