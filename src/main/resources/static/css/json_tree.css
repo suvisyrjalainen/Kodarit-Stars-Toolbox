@@ -49,6 +49,13 @@
         line-height: var(--element-height);
         height: var(--element-height);
     }
+
+    &[open] > summary > .json-array-summary::after {
+        content: '[';
+    }
+    &:not([open]) > summary > .json-array-summary::after {
+        content: '[...]';
+    }
 }
 
 .json-array-content {

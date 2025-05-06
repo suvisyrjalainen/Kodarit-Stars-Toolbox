@@ -97,7 +97,7 @@ function loadNodeFromDrag(event) {
         const json = JSON.parse(jsonData)
         return jsonToTree(json)
     } catch (e) {
-        console.error("Failed to parse JSON data", e)
+        console.warn("Failed to parse JSON data", e)
         return undefined
     }
 }
@@ -122,11 +122,12 @@ function addDragHandlers(element) {
     })
 
     if (element.dataset.type === "array") {
-        element.addEventListener("dragover", event => {
+        const dragZone = element.querySelector(".drag-info");
+        dragZone.addEventListener("dragover", event => {
             event.preventDefault()
             event.dataTransfer.dropEffect = "move"
         })
-        element.addEventListener("drop", event => {
+        dragZone.addEventListener("drop", event => {
             event.preventDefault()
             const node = loadNodeFromDrag(event);
             if (node) {
