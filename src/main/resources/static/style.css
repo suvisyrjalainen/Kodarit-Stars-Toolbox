@@ -94,17 +94,11 @@ body {
     }
 }
 
-:root {
-  --accent-color: #ffffff;
-  --nav-text-color: #000000;
-}
-
 .primary-button {
   position: relative;
   padding: 15px 30px;
   background-color: #ffffff;
   color: #000000;
-  width: 250px;
   height: 40px;
   font-size: 1rem;
   cursor: pointer;
@@ -113,22 +107,11 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  z-index: 1;
   overflow: hidden;
-}
-
-.primary-button::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 0.5rem;
-  padding: 15px;
   background: radial-gradient(
     ellipse at center,
     rgba(0, 0, 0, 0) 0%,
     rgba(0, 0, 0, 0.1) 50%,
     rgba(0, 0, 0, 0.3) 120%
   );
-  z-index: 0;
-  pointer-events: none;
 }
