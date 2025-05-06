@@ -131,6 +131,10 @@ function addDragHandlers(element) {
             event.preventDefault()
             const node = loadNodeFromDrag(event);
             if (node) {
+                if (node.contains(element)) {
+                    alert("Element cannot contain itself")
+                    return
+                }
                 node.remove()
                 element.querySelector(".json-array-content").appendChild(node)
             }
