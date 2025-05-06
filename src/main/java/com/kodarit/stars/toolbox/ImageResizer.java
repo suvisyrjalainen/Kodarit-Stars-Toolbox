@@ -62,7 +62,7 @@ public class ImageResizer {
     /**
      * Extracts image format from filename
      */
-    private String getImageFormat(String filename) {
+    public String getImageFormat(String filename) {
         if (filename == null) return "png"; // default
 
         String extension = "";
