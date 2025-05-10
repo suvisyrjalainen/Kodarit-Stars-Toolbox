@@ -86,4 +86,12 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   }
+
+  // Remove selection from dropdown when editing inputs
+  widthInput.addEventListener('change', () => {
+    presetSelect.value = ''
+  })
+  heightInput.addEventListener('change', () => {
+    presetSelect.value = ''
+  })
 });
