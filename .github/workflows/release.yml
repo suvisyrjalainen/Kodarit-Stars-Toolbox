@@ -1,4 +1,4 @@
-name: release.yml
+name: Publish Release
 on:
   workflow_dispatch:
 
