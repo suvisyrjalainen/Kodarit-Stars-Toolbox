@@ -1,12 +1,9 @@
-name: Build
-
+name: release.yml
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
-  build:
+  publish:
     runs-on: ubuntu-latest
     steps:
       # Get current code from GitHub
@@ -18,6 +15,13 @@ jobs:
         with:
           distribution: temurin
           java-version: 23
+      # Read version number from gradle.properties
+      - name: Read project version
+        id: read-version
+        uses: BrycensRanch/read-properties-action@v1
+        with:
+          file: gradle.properties
+          property: project_version
       # Set up caching of gradle dependencies for speed
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v4
@@ -27,9 +31,15 @@ jobs:
       # Build project (runs tests and ensure that regular build works)
       - name: Build with Gradle
         run: ./gradlew build
-      # Upload image to the container repository
+      # Upload image to the container repository (:latest tag)
       - name: Build and upload image
-        run: ./gradlew jib -Djib.to.image=ghcr.io/suvisyrjalainen/stars-toolbox:dev
+        run: ./gradlew jib -Djib.to.image=ghcr.io/suvisyrjalainen/stars-toolbox:latest
+        env:
+          GHCR_USERNAME: ${{ github.actor }}
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Upload image to the container repository (version tag)
+      - name: Build and upload image
+        run: ./gradlew jib -Djib.to.image=ghcr.io/suvisyrjalainen/stars-toolbox:${{ steps.read-version.outputs.project_version }}
         env:
           GHCR_USERNAME: ${{ github.actor }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}

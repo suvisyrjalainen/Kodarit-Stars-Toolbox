@@ -6,7 +6,7 @@ plugins {
 }
 
 group = 'com.kodarit.stars'
-version = '0.0.1-SNAPSHOT'
+version = project.project_version
 
 java {
 	toolchain {
