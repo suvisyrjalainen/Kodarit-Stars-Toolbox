@@ -43,3 +43,13 @@ jobs:
         env:
           GHCR_USERNAME: ${{ github.actor }}
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Create GitHub release for version tagging
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.read-version.outputs.project_version }}
+          name: Version ${{ steps.read-version.outputs.project_version }}
+          generate_release_notes: true
+          make_latest: true
+          files:
+            build/libs/*.jar
