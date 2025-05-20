@@ -31,5 +31,5 @@ jobs:
       - name: Build and upload image
         run: ./gradlew jib -Djib.to.image=ghcr.io/suvisyrjalainen/stars-toolbox:dev
         env:
-          GHCR_USERNAME: ${{ github.actor }}
-          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_USERNAME: ${{ github.actor }}
+          DOCKER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
