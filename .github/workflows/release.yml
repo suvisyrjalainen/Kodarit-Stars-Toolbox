@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish:
+  publish-docker:
     runs-on: ubuntu-latest
     steps:
       # Get current code from GitHub
@@ -15,6 +15,10 @@ jobs:
         with:
           distribution: temurin
           java-version: 23
+      # Install Heroku CLI
+      - name: Install Heroku CLI
+        run: curl https://cli-assets.heroku.com/install.sh | sh
+
       # Read version number from gradle.properties
       - name: Read project version
         id: read-version
@@ -31,18 +35,35 @@ jobs:
       # Build project (runs tests and ensure that regular build works)
       - name: Build with Gradle
         run: ./gradlew build
+
       # Upload image to the container repository (:latest tag)
-      - name: Build and upload image
+      - name: Build and upload image (latest)
         run: ./gradlew jib -Djib.to.image=ghcr.io/suvisyrjalainen/stars-toolbox:latest
         env:
-          GHCR_USERNAME: ${{ github.actor }}
-          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_USERNAME: ${{ github.actor }}
+          DOCKER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Upload image to the container repository (version tag)
-      - name: Build and upload image
+      - name: Build and upload image (versioned)
         run: ./gradlew jib -Djib.to.image=ghcr.io/suvisyrjalainen/stars-toolbox:${{ steps.read-version.outputs.project_version }}
         env:
-          GHCR_USERNAME: ${{ github.actor }}
-          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_USERNAME: ${{ github.actor }}
+          DOCKER_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Upload to heroku for showcase
+      - name: Build and upload image to Heroku
+        # We use a custom entrypoint to load the port from the env var provided by heroku
+        # This is a bit of a hack as we assume things about how jib works, but there doesn't seem to be anything cleaner
+        run: |
+          ./gradlew jib -Djib.to.image=registry.heroku.com/${{ secrets.HEROKU_APP_NAME }}/web \
+          '-Djib.container.entrypoint="sh","-c","java -cp @/app/jib-classpath-file @/app/jib-main-class-file --server.port=$PORT"'
+        env:
+          DOCKER_USERNAME: ${{ secrets.HEROKU_EMAIL }}
+          DOCKER_TOKEN: ${{ secrets.HEROKU_API_KEY }}
+      - name: Deploy to Heroku
+        run: heroku container:release web --app ${{ secrets.HEROKU_APP_NAME }}
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+
       # Create GitHub release for version tagging
       - name: Create GitHub release
         uses: softprops/action-gh-release@v2

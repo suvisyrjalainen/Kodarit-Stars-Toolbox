@@ -34,8 +34,8 @@ jib {
 	to {
 		image = 'ghcr.io/suvisyrjalainen/stars-toolbox'
 		auth {
-			username = System.env.GHCR_USERNAME ?: ""
-			password = System.env.GHCR_TOKEN ?: ""
+			username = System.env.DOCKER_USERNAME ?: ""
+			password = System.env.DOCKER_TOKEN ?: ""
 		}
 	}
 	container {
