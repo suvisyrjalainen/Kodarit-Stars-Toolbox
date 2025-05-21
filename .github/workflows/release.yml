@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  publish-docker:
+  publish:
     runs-on: ubuntu-latest
     steps:
       # Get current code from GitHub
@@ -15,6 +15,7 @@ jobs:
         with:
           distribution: temurin
           java-version: 23
+          cache: gradle
       # Install Heroku CLI
       - name: Install Heroku CLI
         run: curl https://cli-assets.heroku.com/install.sh | sh
